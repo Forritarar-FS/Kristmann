@@ -65,7 +65,7 @@
                                        <a href="/vefsida">Vefsíður</a>
                                    </li>
                                    <li>
-                                       <a href="#">Second Level Item</a>
+                                       <a href="/verktakar">Verktakar</a>
                                    </li>
                                    <li>
                                        <a href="#">Third Level <span class="fa arrow"></span></a>

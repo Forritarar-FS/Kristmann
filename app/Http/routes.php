@@ -18,9 +18,19 @@ Route::get('/signup', 'PagesController@signUp');
 Route::post('/', 'PagesController@store');
 
 Route::get('/vefsida', 'PagesController@vefsidur');
+Route::get('/verktakar', 'PagesController@verktak');
+
+
 Route::get('/create', 'PagesController@create');
+Route::get('/createverk', 'PagesController@createverk');
+
 Route::get('/vefsida/{id}', 'PagesController@show');
+Route::get('/verktakar/{id}', 'PagesController@showverk');
+
 Route::post('/vefsida', 'PagesController@VefStore');
+Route::post('/verktakar', 'PagesController@VerkStore');
+
+Route::get('/setphoto', 'PagesController@PhotoId');
 
 Route::get('home', 'HomeController@index');
 

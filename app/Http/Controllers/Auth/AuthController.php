@@ -40,7 +40,7 @@ class AuthController extends Controller {
 	{
 
 		$redirectTo = '/index';
-		?><script> alert("hallo3") </script> <?php
+		?><script> alert("Password Eða Emailið Er Rangt , Reyndu Aftur") </script> <?php
 		$this->validate($request, [
 			'email' => 'required', 'password' => 'required',
 			]);

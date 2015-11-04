@@ -37,6 +37,11 @@ audio:not([controls]) {
 template {
   display: none;
 }
+
+#event-modal {
+    margin-top: 0;
+}
+
 a {
   background-color: transparent;
 }
