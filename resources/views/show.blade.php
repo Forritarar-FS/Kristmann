@@ -37,7 +37,7 @@
             </div>
             <div class="modal-body">
               <p>Veldu Starfmann i Verkefnið</p>
-              <form action="/veljamann/{username}" method="POST" enctype="multipart/form-data" >
+              <form action="/vefsida/veljamann/{username}" method="POST" enctype="multipart/form-data" >
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="post_id" value="{{ $vefsida->id}}">
                 <input type="text"  class="form-control" placeholder="Notendarnafnið" name="post_user">
@@ -54,8 +54,10 @@
         </div>
       </div></h1>
 
-      <div class="modal" id="commetsmodal" role="dialog">
-        <div class="modal-dialog">
+      @foreach ($vefcomments as $comments)
+        @if($comments->post_name == $vefsida->id)
+      <div class="modal" id="comment{{ $comments->id }}" role="dialog">
+        <div class="modal-dialog{{ $comments->id}} col-md-6 col-md-offset-3">
 
           <!-- Modal content-->
           <div class="modal-content">
@@ -63,18 +65,16 @@
               <h4 class="modal-title">Edit comment</h4>
             </div>
             <div class="modal-body">
-              <p>Veldu Starfmann i Verkefnið</p>
-              <form action="/breytacomment" method="POST" enctype="multipart/form-data" >
+              <form action="/vefsida/breytacomment" method="POST" enctype="multipart/form-data" >
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <input type="hidden" name="current_user" value="{{ $user->username }}">
               <input type="hidden" name="post_name" value="{{ $vefsida->id }}">
+              <input type="hidden" name="id" value="{{ $comments->id }}">
               <input type="hidden" name="current_userPhoto" value="{{ $user->profilephoto }}">
-              <textarea class="form-control" placeholder="New Comment" name="comment"></textarea>
+              <textarea class="form-control" name="comment" > {{ $comments->comment }}</textarea>
               <input type="submit" value="Saðfesta Comment" class="btn btn-orimary btn-lg">
               </form>
             </div>
-
-<<<<<<< HEAD
 
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -83,6 +83,10 @@
 
         </div>
       </div>
+      @endif
+      @endforeach
+
+
       <article>
         {{ $vefsida->body}}
 
@@ -118,17 +122,13 @@
   </div>
 
     @endif
-  <form class="form-horizontal" role="form" method="POST" action="/VefsaveComment">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-    <input type="hidden" name="post_name" value="{{ $vefsida->id }}">
-    <input type="hidden" name="current_user" value="{{ $user->username }}">
-    <input type="hidden" name="current_userPhoto" value="{{ $user->profilephoto }}">
+
     @stop
     @section('hello')
     @foreach ($vefcomments as $comments)
       @if($comments->post_name == $vefsida->id)
-
     <div class="col-md-6 col-md-offset-3">
+      <input type="hidden" name="id" value=" {{ $comments->id }}">
       <a href="{{ url('index', $comments->current_user)}}" style="font-size:200%;color:black;">
         <img src="../{{$comments->current_userPhoto}}"  height="30" style="display:inline" >
         {{ $comments->current_user }}
@@ -136,20 +136,26 @@
 
       <p>{{ $comments->comment }}</p>
       @if($user->username == $comments->current_user)
-      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#commetsmodal">Edit</button>
+      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#comment{{$comments->id}}">Edit</button>
       @endif
     </div>
   @else
   @endif
 
   @endforeach
+  <form class="form-horizontal" role="form" method="POST" action="/VefsaveComment">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="post_name" value="{{ $vefsida->id }}">
+          <input type="hidden" name="current_user" value="{{ $user->username }}">
+          <input type="hidden" name="current_userPhoto" value="{{ $user->profilephoto }}">
       <div class=" navbar-bottom col-md-6 col-md-offset-3" id="comments">
         <label for="comment">Comment:</label>
         <textarea class="form-control" rows="5" cols="3" name="comment"></textarea>
         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
       </div>
     </form>
+    </div>
   </body>
-  </div>
+  </html>
 
 @stop

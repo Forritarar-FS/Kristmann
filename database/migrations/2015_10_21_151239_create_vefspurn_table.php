@@ -20,7 +20,7 @@ class CreateVefspurnTable extends Migration {
 			$table->text('hofundur');
 			$table->text('current_photo');
 			$table->text('starfsmadur');
-			$table->integer('view_count')->default(0);
+			$table->integer('viewcount')->default(0);
 			$table->timestamps();
 			$table->timestamp('published_at');
 		});

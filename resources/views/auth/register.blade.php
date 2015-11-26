@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-10">
+		<div class="col-md-8 col-md-offset-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">Register</div>
 				<div class="panel-body">

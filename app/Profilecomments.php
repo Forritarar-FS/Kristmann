@@ -9,7 +9,7 @@ class Profilecomments extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id', 'profile_name', 'comment', 'current_user'];
+	protected $fillable = ['id', 'profile_name', 'comment', 'current_user', 'current_userPhoto'];
 	//
 
 }

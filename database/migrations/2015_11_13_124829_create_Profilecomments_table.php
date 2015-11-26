@@ -18,6 +18,7 @@ class CreateProfilecommentsTable extends Migration {
 			$table->text('profile_name');
 			$table->text('comment');
 			$table->text('current_user');
+			$table->string('current_userPhoto');
 			$table->timestamps();
 		});
 	}

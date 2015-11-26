@@ -19,11 +19,6 @@ class CreateForsidaTable extends Migration {
 			$table->string('frettmynd');
 			$table->timestamps();
 		});
-			Schema::insert(insert into forsidas ('id', 'frettdagsins', 'frettmynd', 'created_at') VALUES (1, 'Engin Frétt Í Dag', 'yoyo', 'now()'));
-
-	/*Schema::table('forsidas')->insert(
-			['frettdagsins' => 'Ekki neitt í dag', 'votes' => 1]
-		);*/
 	}
 
 	/**

@@ -1,12 +1,6 @@
 @extends('app')
 
-@section('content')
-<div class="col-sm-8">
-      <h2>Vefsíðulýsing</h2><br>
-      <h4>Góðan dag notandi, þessi síða var hönnuð til að vera milliliður á milli kaupanda og seljanda á vinnu. Hér getiru skrifað umsókn um aðila í vinnu eða umsókn um vinnu sem aðili.</h4><br>
-    </div>
-
-
+@section('hello')
       <h2>Vefsíður top3</h2><br>
       @foreach ($verktakar as $verktakar)
 
@@ -81,7 +75,7 @@
 
 
 @stop
-@section('hello')
+@section('content')
 <div class="col-sm-13">
 <!--
 <h3>Eftir að gera:</h3>
@@ -104,15 +98,9 @@ Bæta við admin aðgang, getur postað posts á index síðu.
 =======
 </div>
 -->
-@if($forsida->frettdagsins != 'none')
 <pre>
     {{$forsida->frettdagsins}}
 </pre>
-@else
-<pre>
-    Ekkert í Dag
-</pre>
-@endif
 <div class="modal" id="editfrett" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
@@ -145,5 +133,4 @@ Bæta við admin aðgang, getur postað posts á index síðu.
 @if($user->id <= 2)
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#editfrett">Edit</a>
 @endif
->>>>>>> 0aff0bfdfd8456120faefe0e7ea6c5083d975591
 @stop

@@ -101,6 +101,39 @@
 
          </div>
        </div>
+<!-- START OF MODALS -->
+
+@foreach ($profilecomments as $comments)
+  @if($comments->profile_name == $user->username)
+<div class="modal" id="comment{{ $comments->id }}" role="dialog">
+  <div class="modal-dialog{{ $comments->id}} col-md-6 col-md-offset-3">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit comment</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/index/breytacomment" method="POST" enctype="multipart/form-data" >
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="current_user" value="{{ $curruser->username }}">
+        <input type="hidden" name="profile_name" value="{{ $user->username }}">
+        <input type="hidden" name="id" value="{{ $comments->id }}">
+        <input type="hidden" name="current_userPhoto" value="{{ $curruser->profilephoto }}">
+        <textarea class="form-control" name="comment" > {{ $comments->comment }}</textarea>
+        <input type="submit" value="Saðfesta Comment" class="btn btn-orimary btn-lg">
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+@endif
+@endforeach
 
 
        <div class="modal" id="myModal" role="dialog">
@@ -127,6 +160,7 @@
 
          </div>
        </div>
+<!-- END OF MODALS -->
 
      </div>
 
@@ -155,25 +189,28 @@ $(document).ready(function(){
 @stop
 
 @section('hello')
-<form class="form-horizontal" role="form" method="POST" action="/profilesaveComment">
-  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-  <input type="hidden" name="profile_name" value="{{ $user->username }}">
-  <input type="hidden" name="current_user" value="{{ $curruser->username }}">
-
-@foreach ($comments as $comments)
+@foreach ($profilecomments as $comments)
   @if($comments->profile_name == $user->username)
-
 <div class="col-md-6 col-md-offset-3">
-  <h1>{{ $comments->current_user }}</h1>
+  <input type="hidden" name="id" value=" {{ $comments->id }}">
+  <a href="{{ url('index', $comments->current_user)}}" style="font-size:200%;color:black;">
+    <img src="../{{$comments->current_userPhoto}}"  height="30" style="display:inline" >
+    {{ $comments->current_user }}
+  </a>
   <p>{{ $comments->comment }}</p>
-  <!--<div class=" navbar navbar-fixed-bottom col-md-offset-2" id="submit_myndir">
-    <img src="../{{$user->profilephoto}}"  height="50" >
-</div>-->
+  @if($curruser->username == $comments->current_user)
+  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#comment{{$comments->id}}">Edit</button>
+  @endif
 </div>
 @else
 @endif
 
 @endforeach
+<form class="form-horizontal" role="form" method="POST" action="/profilesaveComment">
+      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="profile_name" value="{{ $user->username }}">
+      <input type="hidden" name="current_user" value="{{ $curruser->username }}">
+      <input type="hidden" name="current_userPhoto" value="{{ $curruser->profilephoto }}">
   <div class=" navbar-bottom col-md-6 col-md-offset-3" id="comments">
     <label for="comment">Comment:</label>
     <textarea class="form-control" rows="5" cols="3" name="comment"></textarea>
@@ -181,5 +218,8 @@ $(document).ready(function(){
   </div>
 </form>
 </div>
+</body>
+</html>
+
 
 @stop
